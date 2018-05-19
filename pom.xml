@@ -34,6 +34,8 @@
         <jersey.version>2.27</jersey.version>
         <apache.commons.lang.version>3.0</apache.commons.lang.version>
         <apache.commons.io.version>2.5</apache.commons.io.version>
+        <telegrambots.spring.version>3.6.1</telegrambots.spring.version>
+        <mal.api.version>1.0.1</mal.api.version>
 
         <compiler.plugin.version>3.7.0</compiler.plugin.version>
         <resources.plugin.version>3.0.2</resources.plugin.version>
@@ -46,12 +48,12 @@
             <dependency>
                 <groupId>org.telegram</groupId>
                 <artifactId>telegrambots-spring-boot-starter</artifactId>
-                <version>3.6.1</version>
+                <version>${telegrambots.spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.beardbot</groupId>
                 <artifactId>mal-api</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>${mal.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.jersey.core</groupId>
