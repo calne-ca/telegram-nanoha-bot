@@ -1,0 +1,35 @@
+13:14:59.087 INFO  o.s.boot.StartupInfoLogger 50 - Starting Application on Joscha-PC with PID 10488 (C:\Users\Joscha\IdeaProjects\telegram-bots\application\target\classes started by Joscha in C:\Users\Joscha\IdeaProjects\telegram-bots)
+13:14:59.090 DEBUG o.s.boot.StartupInfoLogger 53 - Running with Spring Boot v2.0.2.RELEASE, Spring v5.0.6.RELEASE
+13:14:59.090 INFO  o.s.boot.SpringApplication 659 - No active profile set, falling back to default profiles: default
+13:15:01.586 INFO  o.s.boot.StartupInfoLogger 59 - Started Application in 2.786 seconds (JVM running for 3.095)
+13:15:09.105 DEBUG n.b.t.b.b.n.h.TextMessageHandler 33 - Received text message from id 265784964: "jesus"
+13:15:10.627 DEBUG n.b.t.b.b.n.h.TextMessageHandler 43 - Found 8 results for query "jesus"
+13:15:10.628 DEBUG n.b.t.b.b.n.h.TextMessageHandler 48 - Choosing first anime as result for id 265784964
+13:18:45.511 INFO  o.s.boot.StartupInfoLogger 50 - Starting Application on Joscha-PC with PID 9812 (C:\Users\Joscha\IdeaProjects\telegram-bots\application\target\classes started by Joscha in C:\Users\Joscha\IdeaProjects\telegram-bots)
+13:18:45.515 DEBUG o.s.boot.StartupInfoLogger 53 - Running with Spring Boot v2.0.2.RELEASE, Spring v5.0.6.RELEASE
+13:18:45.516 INFO  o.s.boot.SpringApplication 659 - No active profile set, falling back to default profiles: default
+13:18:48.061 INFO  o.s.boot.StartupInfoLogger 59 - Started Application in 2.849 seconds (JVM running for 3.172)
+13:18:53.738 DEBUG n.b.t.b.b.n.h.TextMessageHandler 33 - Received text message from id 265784964: "neo"
+13:18:55.269 DEBUG n.b.t.b.b.n.h.TextMessageHandler 43 - Found 77 results for query "neo"
+13:18:55.270 DEBUG n.b.t.b.b.n.h.TextMessageHandler 48 - Choosing first anime as result for id 265784964
+13:18:58.880 DEBUG n.b.t.b.b.n.h.InlineQueryHandler 28 - Received inline query from id 1141537732441404148: ""
+13:18:58.880 DEBUG n.b.t.b.b.n.h.InlineQueryHandler 31 - Ignored inline query from id 1141537732441404148 due to empty query
+13:18:59.880 DEBUG n.b.t.b.b.n.h.InlineQueryHandler 28 - Received inline query from id 1141537730322542755: "lisa"
+13:19:01.313 DEBUG n.b.t.b.b.n.h.InlineQueryHandler 38 - Found 9 results for query "lisa"
+13:19:02.699 DEBUG n.b.t.b.b.n.h.TextMessageHandler 33 - Received text message from id 265784964: "🍙 Manga
+🇯🇵 Alisa of the Silver Hair
+🇬🇧 Alisa of the Silver Hair
+📆 1970 - 1972
+
+📚 Volumes: 1  Chapters: 4
+
+A collection of oneshots.
+
+Alisa of the Silver Hair (two parts): As a child, the eponymous heroine is betrayed by three jealous friends who throw her into a pit and leave her to die. But Arisa perserveres: She trains herself to be smarter, faster, and more beautiful than any of them and returns for revenge. Years of living underground have left her with the silver hair of the title, so her victims can't be sure whether the resemblance is real or only the product their guilty consciences... (source: M-U)
+
+🌕🌕🌕🌕🌕🌕🌖🌑🌑🌑 (6.79/10)"
+13:19:02.702 DEBUG n.b.t.b.b.n.h.TextMessageHandler 36 - Ignored text message from id 265784964 due to empty text
+13:19:04.795 DEBUG n.b.t.b.b.n.h.TextMessageHandler 33 - Received text message from id 265784964: "null"
+13:19:04.796 DEBUG n.b.t.b.b.n.h.TextMessageHandler 36 - Ignored text message from id 265784964 due to empty text
+13:19:12.316 DEBUG n.b.t.b.b.n.h.TextMessageHandler 33 - Received text message from id 265784964: "null"
+13:19:12.317 DEBUG n.b.t.b.b.n.h.TextMessageHandler 36 - Ignored text message from id 265784964 due to empty text
