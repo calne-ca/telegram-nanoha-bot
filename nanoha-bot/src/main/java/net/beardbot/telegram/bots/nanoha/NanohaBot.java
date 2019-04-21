@@ -39,7 +39,7 @@ public class NanohaBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         BotApiMethod<?> answer = null;
 
-        try{
+        try {
             if (update.hasInlineQuery()){
                 answer = inlineQueryHandler.getAnswer(update.getInlineQuery());
             } else if (update.hasMessage()){

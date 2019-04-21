@@ -1,7 +1,7 @@
 package net.beardbot.telegram.bots.nanoha.response;
 
-import net.beardbot.myanimelist.model.anime.Anime;
-import net.beardbot.myanimelist.model.manga.Manga;
+import net.beardbot.telegram.bots.nanoha.api.Anime;
+import net.beardbot.telegram.bots.nanoha.api.Manga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

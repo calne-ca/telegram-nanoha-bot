@@ -47,13 +47,23 @@
 
     </appender>
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %class{36} %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="net.beardbot.telegram.bots" level="debug"
             additivity="false">
         <appender-ref ref="FILE_APPENDER_TELEGRAM_BOTS" />
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <root level="error">
         <appender-ref ref="FILE_APPENDER_APPLICATION" />
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>

@@ -1,0 +1,10 @@
+version: '2.2'
+services:
+  telegram-bots:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: telegrambots
+    container_name: telegram-bots
+    volumes:
+    - ./logs:/usr/src/telegram-bots/logs

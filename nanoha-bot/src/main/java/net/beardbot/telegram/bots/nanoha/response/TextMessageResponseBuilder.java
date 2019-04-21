@@ -1,10 +1,7 @@
 package net.beardbot.telegram.bots.nanoha.response;
 
-import net.beardbot.myanimelist.model.anime.Anime;
-import net.beardbot.myanimelist.model.anime.AnimeStatus;
-import net.beardbot.myanimelist.model.anime.AnimeType;
-import net.beardbot.myanimelist.model.manga.Manga;
-import net.beardbot.myanimelist.model.manga.MangaStatus;
+import net.beardbot.telegram.bots.nanoha.api.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 
@@ -73,7 +70,7 @@ public class TextMessageResponseBuilder
 
     private static String generateTitle(Anime anime) {
 		String title = "\n<a href=\"" + buildMalUrl(anime) + "\">" + ICON_TITLE + " " + anime.getTitle();
-		if (anime.getEnglishTitle().length() > 0) {
+		if (!StringUtils.isBlank(anime.getEnglishTitle())) {
 			title += "\n" + ICON_ENGLISH + " " + anime.getEnglishTitle();
 		}
 		title += "</a>";
@@ -82,7 +79,7 @@ public class TextMessageResponseBuilder
 
 	private static String generateTitle(Manga manga) {
 		String title = "\n<a href=\"" + buildMalUrl(manga) + "\">" + ICON_TITLE + " " + manga.getTitle();
-		if (manga.getEnglishTitle().length() > 0) {
+		if (!StringUtils.isBlank(manga.getEnglishTitle())) {
 			title += "\n" + ICON_ENGLISH + " " + manga.getEnglishTitle();
 		}
 		title += "</a>";
@@ -90,7 +87,7 @@ public class TextMessageResponseBuilder
 	}
 
     private static String generateEpisodes(Anime anime) {
-		if (anime.getType().equals(AnimeType.MOVIE)) {
+		if (anime.getType() == AnimeType.MOVIE) {
 			return "";
 		}
 		String episodes = anime.getEpisodes() == 0 ? "?" : String.valueOf(anime.getEpisodes());
@@ -105,10 +102,10 @@ public class TextMessageResponseBuilder
 
 
 
-    private static String generateRatingString(float f) {
+    private static String generateRatingString(double f) {
 		String str = "";
 		int whole = (int)f;
-		float fraction = f - whole;
+		double fraction = f - whole;
 		for (int i = 0; i < whole; i++) {
 			str += RATING_FULL;
 		}
@@ -138,10 +135,10 @@ public class TextMessageResponseBuilder
 		else
 			endString = " - " + endString;
 			AnimeStatus status = anime.getStatus();
-			if (!status.equals(AnimeStatus.NOT_YET_AIRED)) {
+			if (status != AnimeStatus.NOT_YET_AIRED) {
 			str += startString + endString;
 		}
-		if (!status.equals(AnimeStatus.FINISHED_AIRING)) {
+		if (status != AnimeStatus.FINISHED_AIRING) {
 			str += " (" + status.getValue() + ")";
 		}
 		return str;
