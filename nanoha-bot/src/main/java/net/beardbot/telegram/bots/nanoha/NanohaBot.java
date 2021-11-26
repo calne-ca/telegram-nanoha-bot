@@ -5,7 +5,6 @@ import net.beardbot.telegram.bots.nanoha.handler.InlineQueryHandler;
 import net.beardbot.telegram.bots.nanoha.handler.TextMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.BotApiMethod;
 import org.telegram.telegrambots.api.objects.Update;
@@ -14,7 +13,6 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 @Component
 @Slf4j
-@PropertySource("nanoha.properties")
 public class NanohaBot extends TelegramLongPollingBot {
     @Value("${bot.nanoha.username}")
     private String username;

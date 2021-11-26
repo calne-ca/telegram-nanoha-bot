@@ -1,0 +1,22 @@
+bot:
+  nanoha:
+    username: ${BOT_USERNAME:}
+    token: ${BOT_TOKEN:}
+
+telegram:
+  inline:
+    results:
+      description:
+        length: 100
+      max: 20
+  message:
+    length:
+      max: 50
+      min: 3
+
+spring:
+  cache:
+    cache-names: anime-search,manga-search
+    caffeine:
+      spec:
+        expireAfterWrite: 12h

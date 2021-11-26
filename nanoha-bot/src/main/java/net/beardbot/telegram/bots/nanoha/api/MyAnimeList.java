@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class MyAnimeList {
 
-    private static String DATE_PATTERN = "yyyy-MM-dd";
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
 
     @Cacheable("anime-search")
     public List<Anime> searchForAnimes(String query){
@@ -54,10 +54,8 @@ public class MyAnimeList {
     private Manga convert(MangaPageManga mangaPageManga){
         Manga manga = new Manga();
 
-        //com.github.Doomsdayrs.Jikan4java.types.Main.Manga.Manga mangaEntry = mangaPageManga.getManga();
         manga.setId(mangaPageManga.getMal_id());
         manga.setTitle(mangaPageManga.getTitle());
-        //manga.setEnglishTitle(mangaPageManga.getTitle());
         manga.setSynopsis(mangaPageManga.getSynopsis());
         manga.setType(MangaType.of(mangaPageManga.getType()));
         manga.setImageUrl(determineImageUrl(mangaPageManga));
@@ -74,10 +72,8 @@ public class MyAnimeList {
     private Anime convert(AnimePageAnime animePageAnime){
         Anime anime = new Anime();
 
-        //com.github.Doomsdayrs.Jikan4java.types.Main.Anime.Anime animeEntry = animePageAnime.getAnime();
         anime.setId(animePageAnime.getMal_id());
         anime.setTitle(animePageAnime.getTitle());
-        //anime.setEnglishTitle(animePageAnime.getTitle());
         anime.setSynopsis(animePageAnime.getSynopsis());
         anime.setType(AnimeType.of(animePageAnime.getType()));
         anime.setImageUrl(determineImageUrl(animePageAnime));

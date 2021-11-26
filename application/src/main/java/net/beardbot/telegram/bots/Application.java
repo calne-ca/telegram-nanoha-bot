@@ -7,7 +7,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.telegram.telegrambots.ApiContextInitializer;
 
 @SpringBootApplication
-// @EnableTelegramBots <- Doesn't seem to work
 @EnableCaching
 public class Application {
 
