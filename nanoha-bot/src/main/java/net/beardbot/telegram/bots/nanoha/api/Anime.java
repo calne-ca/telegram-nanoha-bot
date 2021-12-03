@@ -18,4 +18,8 @@ public class Anime {
     private Date startDate = Date.from(Instant.now());
     private Date endDate = Date.from(Instant.now());
     private String imageUrl;
+
+    public String getMalUrl(){
+        return String.format("https://myanimelist.net/anime/%d", id);
+    }
 }

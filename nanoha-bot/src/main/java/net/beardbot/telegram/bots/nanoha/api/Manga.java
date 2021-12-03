@@ -19,4 +19,8 @@ public class Manga {
     private Date startDate = Date.from(Instant.now());
     private Date endDate = Date.from(Instant.now());
     private String imageUrl;
+
+    public String getMalUrl(){
+        return String.format("https://myanimelist.net/manga/%d", id);
+    }
 }

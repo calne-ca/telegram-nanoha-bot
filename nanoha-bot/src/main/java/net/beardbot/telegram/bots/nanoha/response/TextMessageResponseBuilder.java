@@ -69,7 +69,7 @@ public class TextMessageResponseBuilder
 	}
 
     private static String generateTitle(Anime anime) {
-		String title = "\n<a href=\"" + buildMalUrl(anime) + "\">" + ICON_TITLE + " " + anime.getTitle();
+		String title = "\n<a href=\"" + anime.getMalUrl() + "\">" + ICON_TITLE + " " + anime.getTitle();
 		if (!StringUtils.isBlank(anime.getEnglishTitle())) {
 			title += "\n" + ICON_ENGLISH + " " + anime.getEnglishTitle();
 		}
@@ -78,7 +78,7 @@ public class TextMessageResponseBuilder
     }
 
 	private static String generateTitle(Manga manga) {
-		String title = "\n<a href=\"" + buildMalUrl(manga) + "\">" + ICON_TITLE + " " + manga.getTitle();
+		String title = "\n<a href=\"" + manga.getMalUrl() + "\">" + ICON_TITLE + " " + manga.getTitle();
 		if (!StringUtils.isBlank(manga.getEnglishTitle())) {
 			title += "\n" + ICON_ENGLISH + " " + manga.getEnglishTitle();
 		}
@@ -164,12 +164,6 @@ public class TextMessageResponseBuilder
 		return str;
 	}
 
-	private static String buildMalUrl(Anime anime) {
-		return String.format("https://myanimelist.net/anime/%s",anime.getId());
-	}
-	private static String buildMalUrl(Manga manga) {
-		return String.format("https://myanimelist.net/anime/%s",manga.getId());
-	}
 	private static String formatDate(Date date) {
 		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FROMAT);
 		return formatter.format(date);
