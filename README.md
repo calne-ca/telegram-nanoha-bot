@@ -16,3 +16,26 @@ It also contains a link to the corresponding MyAnimeList page.
 
 You can also write this bot directly in which case the bot will interpret your message as a search query and returns the first search result.
 
+#### Specifying the Search Type
+
+You can specify if you want to search for anime or manga by adding a prefix.
+Prefix your message with *a:* to search for anime and *m:* to search for manga.
+Adding a *am:* prefix will search for both manga and anime.
+This is the default behaviour if you don't add a prefix, so you can omit this.
+
+#### Inline Examples:
+
+Search for jojo manga:
+````
+@NanohaBot m: jojo
+````
+
+Search for jojo anime:
+````
+@NanohaBot a: jojo
+````
+
+Search for jojo manga and anime:
+````
+@NanohaBot jojo
+````
