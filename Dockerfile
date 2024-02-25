@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11
-COPY application/target/telegram-bots-application-1.0.0-exec.jar /usr/src/telegram-bots/telegram-bots.jar
+FROM eclipse-temurin:17-jre
+COPY nanoha-bot/target/telegram-bot-nanoha-1.0.0.jar /usr/src/telegram-bots/nanoha-bot.jar
 WORKDIR /usr/src/telegram-bots
-CMD ["java", "-jar", "telegram-bots.jar"]
+CMD ["java", "-jar", "nanoha-bot.jar"]

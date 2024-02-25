@@ -27,13 +27,14 @@ public enum AnimeType {
     MOVIE("Movie"),
     SPECIAL("Special"),
     ONA("ONA"),
-    MUSIC("Music");
+    MUSIC("Music"),
+    UNKNOWN("Unknown");
 
     private final String value;
 
-    public static AnimeType of(String str){
+    public static AnimeType of(String str) {
         for (AnimeType type : values()) {
-            if (type.getValue().equalsIgnoreCase(str)){
+            if (type.getValue().equalsIgnoreCase(str)) {
                 return type;
             }
         }

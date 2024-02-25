@@ -12,9 +12,9 @@ public class Anime {
     private String englishTitle;
     private AnimeType type;
     private String synopsis;
-    private int episodes;
+    private Integer episodes;
     private AnimeStatus status;
-    private double score;
+    private Double score;
     private Date startDate = Date.from(Instant.now());
     private Date endDate = Date.from(Instant.now());
     private String imageUrl;

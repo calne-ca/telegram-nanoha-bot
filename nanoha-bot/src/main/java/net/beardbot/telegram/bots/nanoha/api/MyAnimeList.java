@@ -1,20 +1,12 @@
 package net.beardbot.telegram.bots.nanoha.api;
 
-import com.github.Doomsdayrs.Jikan4java.connection.Anime.AnimeConnection;
-import com.github.Doomsdayrs.Jikan4java.connection.Manga.MangaConnection;
-import com.github.Doomsdayrs.Jikan4java.types.Main.Anime.AnimePage.AnimePage;
-import com.github.Doomsdayrs.Jikan4java.types.Main.Anime.AnimePage.AnimePageAnime;
-import com.github.Doomsdayrs.Jikan4java.types.Main.Manga.MangaPage.MangaPage;
-import com.github.Doomsdayrs.Jikan4java.types.Main.Manga.MangaPage.MangaPageManga;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.json.simple.parser.ParseException;
+import net.sandrohc.jikan.Jikan;
+import net.sandrohc.jikan.exception.JikanQueryException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,104 +14,119 @@ import java.util.List;
 @Service
 @Slf4j
 public class MyAnimeList {
-
-    private static final String DATE_PATTERN = "yyyy-MM-dd";
+    private final Jikan jikan = new Jikan();
 
     @Cacheable("anime-search")
-    public List<Anime> searchForAnimes(String query){
-        List<Anime> animes = new ArrayList<>();
+    public List<Anime> searchForAnimes(String query) {
+        var animes = new ArrayList<Anime>();
+
         try {
-            log.debug("Fetching animes from Jikan API for query '{}'",query);
-            AnimePage animePage = new AnimeConnection().searchPage(query, 1);
-            animePage.getAnimes().forEach(a->animes.add(convert(a)));
-        } catch (IOException | ParseException e) {
+            log.debug("Fetching animes from Jikan API for query '{}'", query);
+
+            jikan.query().anime().search()
+                    .query(query)
+                    .limit(20)
+                    .execute()
+                    .collectList()
+                    .block().forEach(a -> animes.add(convert(a)));
+        } catch (JikanQueryException e) {
             e.printStackTrace();
         }
         return animes;
     }
 
     @Cacheable("manga-search")
-    public List<Manga> searchForMangas(String query){
-        List<Manga> mangas = new ArrayList<>();
+    public List<Manga> searchForMangas(String query) {
+        var mangas = new ArrayList<Manga>();
+
         try {
-            log.debug("Fetching mangas from Jikan API for query '{}'",query);
-            MangaPage mangaPage = new MangaConnection().searchPage(query, 1);
-            mangaPage.getMangas().forEach(m->mangas.add(convert(m)));
-        } catch (IOException | ParseException e) {
+            log.debug("Fetching mangas from Jikan API for query '{}'", query);
+
+            jikan.query().manga().search()
+                    .query(query)
+                    .limit(20)
+                    .execute()
+                    .collectList()
+                    .block().forEach(m -> mangas.add(convert(m)));
+        } catch (JikanQueryException e) {
             e.printStackTrace();
         }
+
         return mangas;
     }
 
-    private Manga convert(MangaPageManga mangaPageManga){
-        Manga manga = new Manga();
+    private Manga convert(net.sandrohc.jikan.model.manga.Manga m) {
+        var manga = new Manga();
 
-        manga.setId(mangaPageManga.getMal_id());
-        manga.setTitle(mangaPageManga.getTitle());
-        manga.setSynopsis(mangaPageManga.getSynopsis());
-        manga.setType(MangaType.of(mangaPageManga.getType()));
-        manga.setImageUrl(determineImageUrl(mangaPageManga));
-        manga.setVolumes(mangaPageManga.getVolumes());
-        manga.setChapters(mangaPageManga.getChapters());
-        manga.setStatus(determineStatus(mangaPageManga));
-        manga.setScore(mangaPageManga.getScore());
-        manga.setStartDate(convertDate(mangaPageManga.getStart_date()));
-        manga.setEndDate(convertDate(mangaPageManga.getEnd_date()));
+        manga.setId(m.getMalId());
+        manga.setTitle(m.getTitle());
+        manga.setSynopsis(m.getSynopsis());
+        manga.setType(convert(m.getType()));
+        manga.setImageUrl(m.getImages().getPreferredImageUrl());
+        manga.setVolumes(m.getVolumes());
+        manga.setChapters(m.getChapters());
+        manga.setStatus(determineStatus(m));
+        manga.setScore(m.getScore());
+        manga.setStartDate(convert(m.getPublished().getFrom()));
+        manga.setEndDate(convert(m.getPublished().getTo()));
 
         return manga;
     }
 
-    private Anime convert(AnimePageAnime animePageAnime){
-        Anime anime = new Anime();
+    private Anime convert(net.sandrohc.jikan.model.anime.Anime a) {
+        var anime = new Anime();
 
-        anime.setId(animePageAnime.getMal_id());
-        anime.setTitle(animePageAnime.getTitle());
-        anime.setSynopsis(animePageAnime.getSynopsis());
-        anime.setType(AnimeType.of(animePageAnime.getType()));
-        anime.setImageUrl(determineImageUrl(animePageAnime));
-        anime.setEpisodes(animePageAnime.getEpisodes());
-        anime.setStatus(determineStatus(animePageAnime));
-        anime.setScore(animePageAnime.getScore());
-        anime.setStartDate(convertDate(animePageAnime.getStart_date()));
-        anime.setEndDate(convertDate(animePageAnime.getEnd_date()));
+        anime.setId(a.getMalId());
+        anime.setTitle(a.getTitle());
+        anime.setSynopsis(a.getSynopsis());
+        anime.setType(convert(a.getType()));
+        anime.setImageUrl(a.getImages().getPreferredImageUrl());
+        anime.setEpisodes(a.getEpisodes());
+        anime.setStatus(determineStatus(a));
+        anime.setScore(a.getScore());
+        anime.setStartDate(convert(a.getAired().getFrom()));
+        anime.setEndDate(convert(a.getAired().getTo()));
 
         return anime;
     }
 
-    private String determineImageUrl(AnimePageAnime animePageAnime){
-        return animePageAnime.getIconURL().replace(".jpg","l.jpg");
+    private AnimeType convert(net.sandrohc.jikan.model.anime.AnimeType type) {
+        if (type == null) {
+            return AnimeType.UNKNOWN;
+        }
+
+        return AnimeType.of(type.getSearch());
     }
 
-    private String determineImageUrl(MangaPageManga mangaPageManga){
-        return mangaPageManga.getIconURL().replace(".jpg","l.jpg");
+    private MangaType convert(net.sandrohc.jikan.model.manga.MangaType type) {
+        if (type == null) {
+            return MangaType.UNKNOWN;
+        }
+
+        return MangaType.of(type.getSearch());
     }
 
-    private AnimeStatus determineStatus(AnimePageAnime animePageAnime){
-        if (animePageAnime.isAiring()){
+    private Date convert(OffsetDateTime offsetDateTime) {
+        if (offsetDateTime == null) {
+            return null;
+        }
+
+        return Date.from(offsetDateTime.toInstant());
+    }
+
+    private AnimeStatus determineStatus(net.sandrohc.jikan.model.anime.Anime animePageAnime) {
+        if (animePageAnime.isAiring()) {
             return AnimeStatus.CURRENTLY_AIRING;
         }
 
-        return StringUtils.isBlank(animePageAnime.getEnd_date()) ? AnimeStatus.NOT_YET_AIRED : AnimeStatus.FINISHED_AIRING;
+        return animePageAnime.getAired().getTo() == null ? AnimeStatus.NOT_YET_AIRED : AnimeStatus.FINISHED_AIRING;
     }
 
-    private MangaStatus determineStatus(MangaPageManga mangaPageManga){
-        if (mangaPageManga.isPublishing()){
+    private MangaStatus determineStatus(net.sandrohc.jikan.model.manga.Manga m) {
+        if (m.isPublishing()) {
             return MangaStatus.PUBLISHING;
         }
 
-        return StringUtils.isBlank(mangaPageManga.getEnd_date()) ? MangaStatus.NOT_YET_PUBLISHED : MangaStatus.FINISHED;
-    }
-
-    private Date convertDate(String dateString){
-        if (StringUtils.isBlank(dateString)){
-            return Date.from(Instant.ofEpochMilli(0));
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-        try {
-            return dateFormat.parse(dateString);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return m.getPublished().getTo() == null ? MangaStatus.NOT_YET_PUBLISHED : MangaStatus.FINISHED;
     }
 }

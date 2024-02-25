@@ -27,13 +27,14 @@ public enum MangaType {
     NE_SHOT("One-shot"),
     DOUJINSHI("Doujinshi"),
     MANHWA("Manhwa"),
-    MANHUA("Manhua");
+    MANHUA("Manhua"),
+    UNKNOWN("Unknown");
 
     private final String value;
 
-    public static MangaType of(String str){
+    public static MangaType of(String str) {
         for (MangaType type : values()) {
-            if (type.getValue().equalsIgnoreCase(str)){
+            if (type.getValue().equalsIgnoreCase(str)) {
                 return type;
             }
         }

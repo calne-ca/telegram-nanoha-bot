@@ -9,8 +9,8 @@ import net.beardbot.telegram.bots.nanoha.response.InlineMessageResponseCreator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.api.methods.AnswerInlineQuery;
-import org.telegram.telegrambots.api.objects.inlinequery.InlineQuery;
+import org.telegram.telegrambots.meta.api.methods.AnswerInlineQuery;
+import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,21 +27,21 @@ public class InlineQueryHandler {
     private final MyAnimeList myAnimeList;
     private final InlineMessageResponseCreator inlineMessageResponseCreator;
 
-    public AnswerInlineQuery getAnswer(InlineQuery inlineQuery){
-        String inlineQueryId = inlineQuery.getId();
-        String text = inlineQuery.getQuery();
+    public AnswerInlineQuery getAnswer(InlineQuery inlineQuery) {
+        var inlineQueryId = inlineQuery.getId();
+        var text = inlineQuery.getQuery();
 
-        log.debug("Received inline text from id {}: \"{}\"",inlineQueryId,text);
+        log.debug("Received inline text from id {}: \"{}\"", inlineQueryId, text);
 
-        RequestType type = RequestType.fromMessage(text);
-        String query = type.extractQuery(text);
+        var type = RequestType.fromMessage(text);
+        var query = type.extractQuery(text);
 
-        if (StringUtils.isBlank(query)){
-            log.debug("Ignored inline query from id {} due to empty text.",inlineQueryId);
+        if (StringUtils.isBlank(query)) {
+            log.debug("Ignored inline query from id {} due to empty text.", inlineQueryId);
             return null;
         }
-        if (query.length() > maxMessageLength || query.length() < minMessageLength){
-            log.debug("Ignored inline query from id {} due to message size limit.",inlineQueryId);
+        if (query.length() > maxMessageLength || query.length() < minMessageLength) {
+            log.debug("Ignored inline query from id {} due to message size limit.", inlineQueryId);
             return null;
         }
 

@@ -12,15 +12,15 @@ public class Manga {
     private String englishTitle;
     private MangaType type;
     private String synopsis;
-    private int volumes;
-    private int chapters;
+    private Integer volumes;
+    private Integer chapters;
     private MangaStatus status;
-    private double score;
+    private Double score;
     private Date startDate = Date.from(Instant.now());
     private Date endDate = Date.from(Instant.now());
     private String imageUrl;
 
-    public String getMalUrl(){
+    public String getMalUrl() {
         return String.format("https://myanimelist.net/manga/%d", id);
     }
 }

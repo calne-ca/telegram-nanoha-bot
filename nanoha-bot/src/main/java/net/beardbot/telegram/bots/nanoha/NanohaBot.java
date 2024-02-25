@@ -6,10 +6,10 @@ import net.beardbot.telegram.bots.nanoha.handler.TextMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.api.methods.BotApiMethod;
-import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 @Slf4j
@@ -34,6 +34,7 @@ public class NanohaBot extends TelegramLongPollingBot {
         return username;
     }
 
+    @Override
     public void onUpdateReceived(Update update) {
         BotApiMethod<?> answer = null;
 
@@ -44,11 +45,23 @@ public class NanohaBot extends TelegramLongPollingBot {
                 answer = textMessageHandler.getAnswer(update.getMessage());
             }
 
-            if (answer != null){
+            if (answer != null) {
                 sendApiMethod(answer);
             }
         } catch (TelegramApiException e) {
-            log.error("Failed to send response to Telegram due to: {}",e.getMessage());
+            log.error("Failed to send response to Telegram due to: {}", e.getMessage());
         }
+    }
+
+    @Override
+    public void onRegister() {
+        super.onRegister();
+        log.info("Registered bot: {}", username);
+    }
+
+    @Override
+    public void onClosing() {
+        super.onClosing();
+        log.info("Closing bot: {}", username);
     }
 }
